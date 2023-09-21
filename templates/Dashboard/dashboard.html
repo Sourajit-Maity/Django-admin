@@ -6,41 +6,6 @@
 
 {% block header %}
 	{% include "../layouts/header.html" with header="Dashboard"%}
-	<style>
-		.font-size-lg {
-            font-size: 1.08rem !important;
-        }
-
-        .font-weight-bold {
-            font-weight: 500 !important;
-        }
-
-        .font-size-h2 {
-            font-size: 18px !important;
-        }
-        .font-weight-bolder{
-            font-weight: 600 !important;
-        }
-		.bg-radial-gradient-primary {
-            background-color: #009EF7;
-            background-image: radial-gradient(circle, rgba(255, 226, 229, 0.4), #009EF7 70%);
-        }
-
-        .bg-radial-gradient-success {
-            background-color: #20c997;
-            background-image: radial-gradient(circle, rgba(255, 226, 229, 0.4), #20c997 70%);
-        }
-
-        .bg-radial-gradient-danger {
-            background-color: #F64E60;
-            background-image: radial-gradient(circle, rgba(255, 226, 229, 0.4), #F64E60 70%);
-        }
-
-        .bg-radial-gradient-warning {
-            background-color: #ffc107;
-            background-image: radial-gradient(circle, rgba(255, 226, 229, 0.4), #ffc107 70%);
-        }
-	</style>
 {% endblock %}
 
 {% block toolbar %}
@@ -54,14 +19,141 @@
 
 
 {% block content %}
-
+	<!--begin::Card-->
+	<div class="card">
+									
+		<!--begin::Card body-->
+		<div class="card-body pt-0">
+			<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+				<div class="col">
+					<div class="fv-row mb-7 fv-plugins-icon-container">
+						<canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+					</div>
+				</div>
+				<div class="col">
+					<div class="fv-row mb-7">
+						<canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+				<div class="col">
+					<div class="fv-row mb-7 fv-plugins-icon-container">
+						<canvas id="myChart3" style="width:100%;max-width:600px"></canvas>
+					</div>
+				</div>
+				<div class="col">
+					<div class="fv-row mb-7">
+						<canvas id="myChart4" style="width:100%;max-width:600px"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end::Card body-->
+	</div>
+	<!--end::Card-->
 {% endblock %}
 
 {% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script>
-	var attachment = undefined;
-	$( document ).ready(function() {
-
+	var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+	var yValues = [55, 49, 44, 24, 15];
+	var barColors = [
+	  "#b91d47",
+	  "#00aba9",
+	  "#2b5797",
+	  "#e8c3b9",
+	  "#1e7145"
+	];
+	
+	new Chart("myChart1", {
+	  type: "pie",
+	  data: {
+		labels: xValues,
+		datasets: [{
+		  backgroundColor: barColors,
+		  data: yValues
+		}]
+	  },
+	  options: {
+		title: {
+		  display: true,
+		  text: "World Wide  Prediction"
+		}
+	  }
 	});
-</script>
+	var xValues = [100,200,300,400,500,600,700,800,900,1000];
+
+new Chart("myChart2", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{ 
+      data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+      borderColor: "red",
+      fill: false
+    }, { 
+      data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+      borderColor: "green",
+      fill: false
+    }, { 
+      data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+      borderColor: "blue",
+      fill: false
+    }]
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues = [55, 49, 44, 24, 15];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart3", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "World Wide Prediction"
+    }
+  }
+});
+var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues = [55, 49, 44, 24, 15];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
+
+new Chart("myChart4", {
+  type: "doughnut",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "World Wide Prediction"
+    }
+  }
+});
+	</script>
+	
 {% endblock %}
