@@ -67,7 +67,6 @@
 									<label class="form-label fw-bolder text-dark fs-6 mb-0" >Password</label>
 									<!--end::Label-->
 									<!--begin::Link-->
-									<a href="{% url 'forget_password' %}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
 									<!--end::Link-->
 								</div>
 								<!--end::Wrapper-->
@@ -85,6 +84,8 @@
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
 									</span>
 								</button>
+								<a href="{% url 'signup' %}" class="link-primary fs-6 fw-bolder">Sign up</a>
+
 								<!--end::Submit button-->
 							</div>
 							<!--end::Actions-->
@@ -150,7 +151,7 @@
 						crossDomain: true,
 						success: function (data) {
 							if (data.status == true) {
-								// console.log(data);
+								 console.log(data);
 								localStorage.setItem("AuthToken", data.token);
 								localStorage.setItem("email", data.email);
 								localStorage.setItem("username", data.username);

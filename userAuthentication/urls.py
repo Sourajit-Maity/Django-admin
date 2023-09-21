@@ -19,6 +19,7 @@ urlpatterns = [
 
     # User
     path('get_user_list/', views.get_user_list, name="get_user_list"),
+    path('signup/', views.signup, name="signup"),
     
     #Login / Register / Logout
     #Views
@@ -28,7 +29,7 @@ urlpatterns = [
 
     #API's
     path('login/', views.login, name="login"),
-    # path('register/', views.register, name="register"),
+    path('register/', views.register, name="register"),
     path('logout/', views.logout, name="logout"),
 
     #Dashboard

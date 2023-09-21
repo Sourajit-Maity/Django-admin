@@ -41,7 +41,19 @@ class AutoDateTimeField(models.DateTimeField):
         return ret_tm
 
 #=========================================================================================
-
+#=========================================================================================
+class Profile(models.Model):
+   
+    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+    rescue_agency = models.CharField(blank=False, null=True, max_length = LENGTH_EX_LARGE, unique=False, verbose_name="Name of Rescue Agency")
+    experitise = models.CharField(blank=False, null=True, max_length = LENGTH_EX_LARGE, unique=False, verbose_name="Experitise")
+    service_type = models.CharField(blank=False, null=True, max_length = LENGTH_EX_LARGE, unique=False, verbose_name="Service Type")
+    phone_number = models.CharField(blank=False, null=True, max_length = LENGTH_EX_LARGE, unique=False, verbose_name="Phone Number")
+    address = models.CharField(blank=False, null=True, max_length = LENGTH_EX_LARGE, unique=False, verbose_name="Address")
+    
+    def __str__(self):  # __unicode__ for Python 2
+        return str(self.id)
+#=========================================================================================
 #=========================================================================================
 class usage_log(models.Model):
     task_type = models.CharField(blank=True, null=True, default=None, max_length = LENGTH_SMALL, choices=[

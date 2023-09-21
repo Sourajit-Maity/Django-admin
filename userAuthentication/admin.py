@@ -23,3 +23,23 @@ class Usage_log(NoDeleteAdminMixin, admin.ModelAdmin):
          # Now call default save
          obj.save()
 admin.site.register(usage_log,Usage_log)
+
+# ===================================================
+#   User profile extension
+# ===================================================
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
+
+    # list_display = ('fullName', 'userType', 'designation')
+    # list_filter = ('device_config__name', 'active', 'added_by')
+    # readonly_fields = ['details', 'added_by', 'added_on']
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+# ===================================================

@@ -134,7 +134,7 @@ def login(request):
         return Response({
             RET_STATUS: True,
             RET_MSG: "Login success",
-            'username': user.email.split('@')[0],
+            'username': user.username.split('@')[0],
             # 'user_type': user_type,
             # 'user_type_obj': user_type_obj,
             'email': user.email,
@@ -266,6 +266,63 @@ def get_usage_count(request):
     except Exception as e:
         #Defaults.logger("Show Usage Count Exception: ", e, level="error")
         return Response({RET_STATUS: False, RET_MSG: str(e)}, status=HTTP_400_BAD_REQUEST)
+    
+    
+    ## users list
+def signup(request):  
+   template = loader.get_template('Authentication/register.html') 
+   return HttpResponse(template.render())
+
+
+# ======================================================================
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+@csrf_exempt
+def register(request):
+    try:
+        # first_name = request.data.get("first_name")
+        # last_name = request.data.get("last_name")
+        email = request.data.get("email")
+        password = request.data.get("password")
+        rescue_agency = request.data.get("rescue_agency")
+        experitise = request.data.get("experitise")
+        service_type = request.data.get("service_type")
+        phone_number = request.data.get("phone_number")
+        address = request.data.get("address")
+        #Defaults.logger("Register: entered", [email, password], level="info")
+
+        try:
+            user_data = User.objects.filter(username = email).values()
+            if len(user_data) == 0:
+                # User.objects.create_user(username = email, email=email, password=password, first_name=first_name, last_name=last_name)
+                user_obj = User.objects.create_user(username = email, email=email, password=password)
+                # print(user_obj.id)
+                Profile(user_id = user_obj.id, rescue_agency = rescue_agency, 
+                        experitise = experitise,service_type = service_type,phone_number = phone_number,address = address).save()
+            else:
+                return Response({RET_STATUS: False, RET_MSG: 'User already exists!!!'},
+                            status=HTTP_200_OK)
+
+            # data.save()
+        except Exception as e:
+            print(e)
+            #Add error
+            return Response({RET_STATUS: False, RET_MSG: 'Failed to add user'},
+                            status=HTTP_400_BAD_REQUEST)
+
+        # --------------------------------------------------------
+
+        return Response({
+            RET_STATUS: True,
+            RET_MSG: "User Registered Successfully",
+        }, status=HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({RET_STATUS: False, RET_MSG: str(e)}, status=HTTP_400_BAD_REQUEST)
+
+
+# ======================================================================
+    
 
 # ======================================================================
 # Usage Log - END

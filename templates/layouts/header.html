@@ -103,7 +103,7 @@
                         
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="" class="menu-link px-5 logout-btn">
+                            <a class="menu-link px-5 logout-btn">
                                 <i class="bi bi-box-arrow-right fs-2"></i>&nbsp; Sign Out</a>
                         </div>
                         <!--end::Menu item-->
@@ -124,10 +124,10 @@
 
 <script>
     $(".logout-btn").click(function () {
+        var AuthToken = localStorage.getItem('AuthToken');
         var url = "{% url 'logout' %}";
         $.ajax({
             url: url,
-            data: '',
             type: "GET",
             headers: {
                 "Authorization": "Token " + AuthToken
@@ -135,7 +135,7 @@
             cache: false,
             crossDomain: true,
             success: function (data) {
-                //console.log(data);
+                console.log(data);
 
                 if (data.status == true) {
                     localStorage.clear();
